@@ -701,9 +701,7 @@ int main(int argc, char **argv) {
     }
     if (testStatus == 0) {
       testsPassed++;
-    } else {
-
-	}
+    }
   }
 
   disable_exit_handler = 1;

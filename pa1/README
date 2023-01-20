@@ -5,3 +5,5 @@ List.c - Contains the definitions for all functions and structs in the assignmen
 ListTest.c - Contains tests for the functions in List.c.
 
 Lex.c - Takes in 2 files as arguments and, using a the list functions, places the lines of the first file alphabetically into the second.
+
+Makefile - Compiles the code.

@@ -1,8 +1,3 @@
-/*
-Gavin Stark
-gestark
-pa1
-*/
 //-----------------------------------------------------------------------------
 // List.c
 // Implementation file for List ADT
@@ -79,7 +74,7 @@ List newList(){
 void freeList(List* pL){
    if(pL!=NULL && *pL!=NULL) { 
       while( !isEmpty(*pL) ) { 
-         deleteFront(*pL); 
+         Delist(*pL); 
       }
       free(*pL);
       *pL = NULL;
@@ -367,23 +362,25 @@ void insertBefore(List L, int x){
    } else if (L->length <= 0) {
 	   printf("List Error: calling insertBefore() on empty List\n");
       exit(EXIT_FAILURE);
-   } else if (index(L) < 0) {
+   } else if (index(L) == -1) {
 	 printf("List Error: calling insertBefore() with no element selected\n");
     exit(EXIT_FAILURE);
    }
-   Node N = newNode(x);
+   
    if(L->cursor->before != NULL){
+      Node N = newNode(x);
       L->cursor->before->next = N;
       N->before = L->cursor->before;
       L->cursor->before = N;
       
       N->next = L->cursor;
+      L->length++;
    } else {
       prepend(L, x);
-      return;
+      
    }
-   L->length++;
-   L->index++;
+   
+   
 }
 
 // insertAfter()
@@ -400,22 +397,24 @@ void insertAfter(List L, int x){
 	printf("List Error: calling insertAfter() with no element selected\n");
     exit(EXIT_FAILURE);
    }
-   Node N = newNode(x);
+   
    if(L->cursor->next != NULL){
+      Node N = newNode(x);
       L->cursor->next->before = N;
       N->next = L->cursor->next;
       
       
       L->cursor->next = N;
       N->before = L->cursor;
+       L->length++;
       
    } else {
       append(L, x);
-      return;
+      
    }
    
-   N->before = L->cursor;
-   L->length++;
+   
+  
 }
 
 // deleteFront()
@@ -610,5 +609,15 @@ List copyList(List L){
 }
 
 
-
+// concatList()
+// Returns a new List which is a concatenation of A and B
+// The cursor in the new list is undefined
+// The states of A and B remain unchanged
+List concatList(List A, List B){
+   List L = newList();
+   for(int i = 0; i < A->length; i++){
+      append(L, A->front->data);
+   }
+   return L;
+}
 
