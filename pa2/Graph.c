@@ -51,7 +51,7 @@ Graph newGraph(int n){
 void freeGraph(Graph* pG){
 	if(pG!=NULL && *pG!=NULL){
 		if((*pG)->neighbors!=NULL){
-			for(int i = 1; i < (*pG)->order + 1; i++){
+			for(int i = 0; i < (*pG)->order; i++){
 				freeList(&((*pG)->neighbors[i]));
 			}
 			printf("test6\n");
