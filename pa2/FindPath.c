@@ -12,8 +12,9 @@ pa2
 
 int main(int argc, char **argv){
 	Graph G = newGraph(5);
-	addEdge(G,2, 3);
-	addEdge(G,1, 4);
-	addEdge(G,3, 4);
+	addEdge(G , 2, 3);
+	addEdge(G , 1, 4);
+	addEdge(G , 3, 4);
+	//printf("%d\n", G->colors);
 	freeGraph(&G);
 }

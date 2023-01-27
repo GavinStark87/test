@@ -10,6 +10,9 @@
 
 
 // Exported types -------------------------------------------------------------
+
+typedef struct GraphObj GraphObj;
+
 typedef struct GraphObj* Graph;
 
 
@@ -67,5 +70,9 @@ void addEdge(Graph G, int u, int v);
 // Adds a new directed edge joining u to v.
 // Pre: 1 <= u <= getOrder(G) and 1 <= v <= getOrder(G)
 void addArc(Graph G, int u, int v);
+
+// BFS()
+// Runs the BFS alglrithm on graph G with source s and sets the parent, distance, color, and source fields of G accodingly
+void BFS(Graph G, int s);
 
 #endif

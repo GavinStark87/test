@@ -31,7 +31,7 @@ Graph newGraph(int n){
 	G->color = (int *)calloc(n + 1, sizeof(int));
 	G->parent = (int *)calloc(n + 1, sizeof(int));
 	G->distance = (int *)calloc(n + 1, sizeof(int));
-	for(int i = 1; i < n + 1; i++){
+	for(int i = 1; i < n; i++){
 		G->neighbors[i] = newList();
 		G->color[i] = 'w';
 		G->parent[i] = NIL;
@@ -166,7 +166,7 @@ void getPath(List L, Graph G, int u){
    if(u == getSource(G)){
 	append(L, getSource(G));
    } else if(G->parent[u] == NIL){
-	append(L, INF);
+	append(L, NIL);
    } else {
 	getPath(L, G, G->parent[u]);
 	append(L, u);
@@ -276,6 +276,45 @@ void addArc(Graph G, int u, int v){
 	G->size += 1;
 }
 
+// BFS()
+// Runs the BFS alglrithm on graph G with source s and sets the parent, distance, color, and source fields of G accodingly
+void BFS(Graph G, int s){
+	if( G==NULL ){
+      printf("Graph Error: calling BFS() on NULL Graph reference\n");
+      exit(EXIT_FAILURE);
+   }
+	for(int i = 1; i < G->order; i++){
+		if(i != s){
+			G->color[i] = 1;
+			G->distance[i] = INF;
+			G->parent[i] = NIL;
+		} else {
+			G->color[s] = 2;
+			G->distance[s] = 0;
+			G->parent[s] = NIL;
+		}
+	}
+	List Q = newList();
+	append(Q, s);
+	while(!isEmpty(Q)){
+		int x = getFront(Q);
+		deleteFront(Q);
+		moveFront(G->neighbors[x]);
+		while(index(G->neighbors[x]) != -1 && !isEmpty(G->neighbors[x])){
+			if(G->color[get(G->neighbors[x])] == 1){
+				printf("found neighbor\n");
+				G->color[get(G->neighbors[x])] = 2;
+				G->distance[get(G->neighbors[x])] = G->distance[x] + 1;
+				G->parent[get(G->neighbors[x])] = x;
+				append(Q, get(G->neighbors[x]));
+			}
+			moveNext(Q);
+		}
+		G->color[x] = 3;
+	}
 
+	
+
+}
 
 
