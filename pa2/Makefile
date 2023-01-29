@@ -4,6 +4,7 @@
 #  make                     makes FindPath
 #  make GraphClient         makes GraphClient
 #  make GraphTest           makes GraphTest
+#  make GraphTest2           makes GraphTest2
 #  make clean               removes binaries
 #  make checkFind           tests FindPath for memory leaks on in7
 #  make checkClient         tests GraphClient for memory leaks
@@ -32,6 +33,12 @@ GraphClient : GraphClient.o $(BASE_OBJECTS)
 GraphTest : GraphTest.o $(BASE_OBJECTS)
 	$(LINK) GraphTest GraphTest.o $(BASE_OBJECTS)
 
+GraphTest2 : GraphTest2.o $(BASE_OBJECTS)
+	$(LINK) GraphTest2 GraphTest2.o $(BASE_OBJECTS)
+
+ListTest : ListTest.o $(BASE_OBJECTS)
+	$(LINK) ListTest ListTest.o $(BASE_OBJECTS)
+
 #Graph.o : Graph.c Graph.h
 #	$(COMPILE) Graph.c
 
@@ -44,11 +51,17 @@ GraphClient.o : GraphClient.c $(HEADERS)
 GraphTest.o : GraphTest.c $(HEADERS)
 	$(COMPILE) GraphTest.c
 
+GraphTest2.o : GraphTest2.c $(HEADERS)
+	$(COMPILE) GraphTest2.c
+
+ListTest.o : ListTest.c $(HEADERS)
+	$(COMPILE) ListTest.c
+
 $(BASE_OBJECTS) : $(BASE_SOURCES) $(HEADERS)
 	$(COMPILE) $(BASE_SOURCES)
 
 clean :
-	$(REMOVE) FindPath GraphClient GraphTest FindPath.o GraphClient.o GraphTest.o$(BASE_OBJECTS)
+	$(REMOVE) FindPath GraphClient GraphTest GraphTest2 FindPath.o GraphClient.o GraphTest.o GraphTest2.o $(BASE_OBJECTS)
 
 checkFind : FindPath
 	$(MEMCHECK) FindPath in7 junk7

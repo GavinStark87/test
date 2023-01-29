@@ -27,11 +27,11 @@ typedef struct GraphObj{
 Graph newGraph(int n){
 	Graph G;
 	G = malloc(sizeof(GraphObj));
-	G->neighbors = (List *)calloc(n, sizeof(List));
+	G->neighbors = (List *)calloc(n + 1, sizeof(List));
 	G->color = (int *)calloc(n + 1, sizeof(int));
 	G->parent = (int *)calloc(n + 1, sizeof(int));
 	G->distance = (int *)calloc(n + 1, sizeof(int));
-	for(int i = 1; i < n; i++){
+	for(int i = 1; i < n + 1; i++){//may cause issue
 		G->neighbors[i] = newList();
 		G->color[i] = 'w';
 		G->parent[i] = NIL;
@@ -51,30 +51,25 @@ Graph newGraph(int n){
 void freeGraph(Graph* pG){
 	if(pG!=NULL && *pG!=NULL){
 		if((*pG)->neighbors!=NULL){
-			for(int i = 0; i < (*pG)->order; i++){
+			for(int i = 0; i < (*pG)->order + 1; i++){
 				freeList(&((*pG)->neighbors[i]));
 			}
-			printf("test6\n");
 			free((*pG)->neighbors);
 			(*pG)->neighbors = NULL;
 		}
 		
 		if((*pG)->color!=NULL){
-			printf("test7 asd\n");
 			free(((*pG)->color));
 			(*pG)->color = NULL;
 		}
 		if((*pG)->parent!=NULL){
-			printf("test8\n");
 			free((*pG)->parent);
 			(*pG)->parent = NULL;
 		}
 		if((*pG)->distance!=NULL){
-			printf("test9\n");
 			free((*pG)->distance);
 			(*pG)->distance = NULL;
 		}
-		printf("test10\n");
 		free(*pG);
 		*pG = NULL;
 
@@ -149,6 +144,34 @@ int getDist(Graph G, int u){
    }
 }
 
+// getColor()
+// Returns the color of vertex u.
+// Pre: 1 <= u <= getOrder(G) 
+int getColor(Graph G, int u){
+	if( G==NULL ){
+      printf("Graph Error: calling getColor() on NULL Graph reference\n");
+      exit(EXIT_FAILURE);
+   } else if (!(1 <= u) || !(u <= getOrder(G))){
+	  printf("Graph Error: calling getColor() on an inelligable vertex\n");
+      exit(EXIT_FAILURE);
+   }
+   return G->color[u];
+}
+
+// getNeighbors()
+// Returns the list of neighbors for vertex u.
+// Pre: 1 <= u <= getOrder(G) 
+List getNeighbors(Graph G, int u){
+	if( G==NULL ){
+      printf("Graph Error: calling getNeighbors() on NULL Graph reference\n");
+      exit(EXIT_FAILURE);
+   } else if (!(1 <= u) || !(u <= getOrder(G))){
+	  printf("Graph Error: calling getNeighbors() on an inelligable vertex\n");
+      exit(EXIT_FAILURE);
+   }
+   return G->neighbors[u];
+}
+
 // getPath()
 // Appends to L the vertices of the shortest path between source and u if such a path exists. If no such path exists NIL is appended to L instead.
 // Pre: 1 <= u <= getOrder(G) and getSource(G) != NIL
@@ -164,12 +187,12 @@ void getPath(List L, Graph G, int u){
       exit(EXIT_FAILURE);
    }
    if(u == getSource(G)){
-	append(L, getSource(G));
+	  append(L, getSource(G));
    } else if(G->parent[u] == NIL){
-	append(L, NIL);
+	  append(L, NIL);
    } else {
-	getPath(L, G, G->parent[u]);
-	append(L, u);
+	  getPath(L, G, G->parent[u]);
+	  append(L, u);
    }
 }
 
@@ -182,7 +205,7 @@ void makeNull(Graph G){
       printf("Graph Error: calling makeNull() on NULL Graph reference\n");
       exit(EXIT_FAILURE);
    }
-   for(int i = 1; i < G->order; i++){
+   for(int i = 1; i < G->order + 1; i++){
 		clear(G->neighbors[i]);
 		G->color[i] = 'w';
 		G->parent[i] = NIL;
@@ -282,8 +305,12 @@ void BFS(Graph G, int s){
 	if( G==NULL ){
       printf("Graph Error: calling BFS() on NULL Graph reference\n");
       exit(EXIT_FAILURE);
+   } else if(s > G->order || s < 1){
+	  printf("Graph Error: calling BFS() with out of range source\n");
+      exit(EXIT_FAILURE);
    }
-	for(int i = 1; i < G->order; i++){
+   G->source = s;
+	for(int i = 1; i < G->order + 1; i++){
 		if(i != s){
 			G->color[i] = 1;
 			G->distance[i] = INF;
@@ -297,24 +324,45 @@ void BFS(Graph G, int s){
 	List Q = newList();
 	append(Q, s);
 	while(!isEmpty(Q)){
-		int x = getFront(Q);
+		int x = front(Q);
 		deleteFront(Q);
-		moveFront(G->neighbors[x]);
-		while(index(G->neighbors[x]) != -1 && !isEmpty(G->neighbors[x])){
-			if(G->color[get(G->neighbors[x])] == 1){
-				printf("found neighbor\n");
-				G->color[get(G->neighbors[x])] = 2;
-				G->distance[get(G->neighbors[x])] = G->distance[x] + 1;
-				G->parent[get(G->neighbors[x])] = x;
-				append(Q, get(G->neighbors[x]));
+		if(!isEmpty(G->neighbors[x])){
+			moveFront(G->neighbors[x]);
+			while(index(G->neighbors[x]) != -1 && !isEmpty(G->neighbors[x])){
+				if(G->color[get(G->neighbors[x])] == 1){
+					G->color[get(G->neighbors[x])] = 2;
+					G->distance[get(G->neighbors[x])] = G->distance[x] + 1;
+					G->parent[get(G->neighbors[x])] = x;
+					append(Q, get(G->neighbors[x]));
+				}
+				moveNext(G->neighbors[x]);
 			}
-			moveNext(Q);
+		
 		}
 		G->color[x] = 3;
 	}
-
-	
-
+	free(Q);
 }
 
+// printPath()
+// Prints the adjacency list of G to the file pointed to by out.
+void printGraph(FILE* out, Graph G){
+	if( G==NULL ){
+      printf("Graph Error: calling printGraph() on NULL Graph reference\n");
+      exit(EXIT_FAILURE);
+   }
+   for(int i = 1; i < G->order + 1; i++){
+		fprintf(out, "%d:", i);
+		if((G->neighbors[i] != NULL) && !isEmpty(G->neighbors[i])){
+			moveFront(G->neighbors[i]);
+		}
+		
+		while((G->neighbors[i] != NULL) && !isEmpty(G->neighbors[i]) && index(G->neighbors[i]) != -1){
+			
+			fprintf(out, " %d", get(G->neighbors[i]));
+			moveNext(G->neighbors[i]);
+		}
+		fprintf(out, "\n");
+   }
+}
 

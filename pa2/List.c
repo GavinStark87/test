@@ -375,6 +375,7 @@ void insertBefore(List L, int x){
       
       N->next = L->cursor;
       L->length++;
+      L->index += 1;
    } else {
       prepend(L, x);
       
@@ -438,9 +439,13 @@ void deleteFront(List L){
    if( length(L)>1 ) { 
 	   L->front->next->before = NULL;
       L->front = L->front->next; 
+      if(L->index != -1){
+         L->index -= 1;
+      }
    }else{ 
       L->front = L->back = NULL; 
    }
+   
    L->length--;
    freeNode(&N);
 }

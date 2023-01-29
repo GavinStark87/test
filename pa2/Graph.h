@@ -11,7 +11,7 @@
 
 // Exported types -------------------------------------------------------------
 
-typedef struct GraphObj GraphObj;
+// typedef struct GraphObj GraphObj;
 
 typedef struct GraphObj* Graph;
 
@@ -50,6 +50,16 @@ int getParent(Graph G, int u);
 // Pre: 1 <= u <= getOrder(G)
 int getDist(Graph G, int u);
 
+// getColor()
+// Returns the color of vertex u.
+// Pre: 1 <= u <= getOrder(G) 
+int getColor(Graph G, int u);
+
+// getNeighbors()
+// Returns the list of neighbors for vertex u.
+// Pre: 1 <= u <= getOrder(G) 
+List getNeighbors(Graph G, int u);
+
 // getPath()
 // Appends to L the vertices of the shortest path between source and u if such a path exists. If no such path exists NIL is appended to L instead.
 // Pre: 1 <= u <= getOrder(G) 
@@ -74,5 +84,11 @@ void addArc(Graph G, int u, int v);
 // BFS()
 // Runs the BFS alglrithm on graph G with source s and sets the parent, distance, color, and source fields of G accodingly
 void BFS(Graph G, int s);
+
+// Other Functions ------------------------------------------------------------
+
+// printPath()
+// Prints the adjacency list of G to the file pointed to by out.
+void printGraph(FILE* out, Graph G);
 
 #endif
