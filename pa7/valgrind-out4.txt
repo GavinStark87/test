@@ -1,0 +1,126 @@
+==3217== Memcheck, a memory error detector
+==3217== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==3217== Using Valgrind-3.15.0-608cb11914-20190413 and LibVEX; rerun with -h for copyright info
+==3217== Command: ./Order infile4.txt outfile4.txt
+==3217== 
+--3217-- Valgrind options:
+--3217--    --leak-check=full
+--3217--    -v
+--3217-- Contents of /proc/version:
+--3217--   Linux version 5.10.16.3-microsoft-standard-WSL2 (oe-user@oe-host) (x86_64-msft-linux-gcc (GCC) 9.3.0, GNU ld (GNU Binutils) 2.34.0.20200220) #1 SMP Fri Apr 2 22:23:49 UTC 2021
+--3217-- 
+--3217-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-ssse3-avx-avx2-bmi-f16c-rdrand
+--3217-- Page sizes: currently 4096, max supported 4096
+--3217-- Valgrind library directory: /usr/lib/x86_64-linux-gnu/valgrind
+--3217-- Reading syms from /mnt/c/Users/megag/Documents/CSE_101/gestark/pa7/Order
+--3217-- Reading syms from /usr/lib/x86_64-linux-gnu/ld-2.31.so
+--3217--   Considering /usr/lib/debug/.build-id/45/87364908de169dec62ffa538170118c1c3a078.debug ..
+--3217--   .. build-id is valid
+--3217-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/memcheck-amd64-linux
+--3217--    object doesn't have a symbol table
+--3217--    object doesn't have a dynamic symbol table
+--3217-- Scheduler: using generic scheduler lock implementation.
+--3217-- Reading suppressions file: /usr/lib/x86_64-linux-gnu/valgrind/default.supp
+==3217== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-3217-by-gavin-on-???
+==3217== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-3217-by-gavin-on-???
+==3217== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-3217-by-gavin-on-???
+==3217== 
+==3217== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==3217== don't want to do, unless you know exactly what you're doing,
+==3217== or are doing some strange experiment):
+==3217==   /usr/lib/x86_64-linux-gnu/valgrind/../../bin/vgdb --pid=3217 ...command...
+==3217== 
+==3217== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==3217==   /path/to/gdb ./Order
+==3217== and then give GDB the following command
+==3217==   target remote | /usr/lib/x86_64-linux-gnu/valgrind/../../bin/vgdb --pid=3217
+==3217== --pid is optional if only one valgrind process is running
+==3217== 
+--3217-- REDIR: 0x4022e20 (ld-linux-x86-64.so.2:strlen) redirected to 0x580c9ce2 (???)
+--3217-- REDIR: 0x4022bf0 (ld-linux-x86-64.so.2:index) redirected to 0x580c9cfc (???)
+--3217-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_core-amd64-linux.so
+--3217--    object doesn't have a symbol table
+--3217-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so
+--3217--    object doesn't have a symbol table
+==3217== WARNING: new redirection conflicts with existing -- ignoring it
+--3217--     old: 0x04022e20 (strlen              ) R-> (0000.0) 0x580c9ce2 ???
+--3217--     new: 0x04022e20 (strlen              ) R-> (2007.0) 0x0483f060 strlen
+--3217-- REDIR: 0x401f600 (ld-linux-x86-64.so.2:strcmp) redirected to 0x483ffd0 (strcmp)
+--3217-- REDIR: 0x4023380 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4843a20 (mempcpy)
+--3217-- Reading syms from /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28
+--3217--    object doesn't have a symbol table
+--3217-- Reading syms from /usr/lib/x86_64-linux-gnu/libgcc_s.so.1
+--3217--    object doesn't have a symbol table
+--3217-- Reading syms from /usr/lib/x86_64-linux-gnu/libc-2.31.so
+--3217--   Considering /usr/lib/debug/.build-id/18/78e6b475720c7c51969e69ab2d276fae6d1dee.debug ..
+--3217--   .. build-id is valid
+--3217-- Reading syms from /usr/lib/x86_64-linux-gnu/libm-2.31.so
+--3217--   Considering /usr/lib/debug/.build-id/fe/91b4090ea04c1559ff71dd9290062776618891.debug ..
+--3217--   .. build-id is valid
+--3217-- REDIR: 0x4af0480 (libc.so.6:memmove) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4aef780 (libc.so.6:strncpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4af07b0 (libc.so.6:strcasecmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4aef0a0 (libc.so.6:strcat) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4aef7e0 (libc.so.6:rindex) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4af1c50 (libc.so.6:rawmemchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4b0cce0 (libc.so.6:wmemchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4b0c820 (libc.so.6:wcscmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4af05e0 (libc.so.6:mempcpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4af0410 (libc.so.6:bcmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4aef710 (libc.so.6:strncmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4aef150 (libc.so.6:strcmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4af0540 (libc.so.6:memset) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4b0c7e0 (libc.so.6:wcschr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4aef670 (libc.so.6:strnlen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4aef230 (libc.so.6:strcspn) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4af0800 (libc.so.6:strncasecmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4aef1d0 (libc.so.6:strcpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4af0950 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4b0df50 (libc.so.6:wcsnlen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4b0c860 (libc.so.6:wcscpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4aef820 (libc.so.6:strpbrk) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4aef100 (libc.so.6:index) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4aef630 (libc.so.6:strlen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4af8bb0 (libc.so.6:memrchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4af0850 (libc.so.6:strcasecmp_l) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4af03d0 (libc.so.6:memchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4b0c930 (libc.so.6:wcslen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4aefae0 (libc.so.6:strspn) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4af0750 (libc.so.6:stpncpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4af06f0 (libc.so.6:stpcpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4af1c90 (libc.so.6:strchrnul) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4af08a0 (libc.so.6:strncasecmp_l) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--3217-- REDIR: 0x4bd8500 (libc.so.6:__strrchr_avx2) redirected to 0x483ea10 (rindex)
+--3217-- REDIR: 0x4aea0e0 (libc.so.6:malloc) redirected to 0x483b780 (malloc)
+--3217-- REDIR: 0x4bd86d0 (libc.so.6:__strlen_avx2) redirected to 0x483ef40 (strlen)
+--3217-- REDIR: 0x4bd4cc0 (libc.so.6:__memcmp_avx2_movbe) redirected to 0x48421e0 (bcmp)
+--3217-- REDIR: 0x4bd3bd0 (libc.so.6:__strcmp_avx2) redirected to 0x483fed0 (strcmp)
+--3217-- REDIR: 0x48fdb20 (libstdc++.so.6:operator new(unsigned long)) redirected to 0x483bdf0 (operator new(unsigned long))
+--3217-- REDIR: 0x4bdb6e0 (libc.so.6:__memcpy_avx_unaligned_erms) redirected to 0x48429f0 (memmove)
+--3217-- REDIR: 0x4aeffa0 (libc.so.6:__GI_strstr) redirected to 0x4843ca0 (__strstr_sse2)
+--3217-- REDIR: 0x48fdb80 (libstdc++.so.6:operator new[](unsigned long)) redirected to 0x483c510 (operator new[](unsigned long))
+--3217-- REDIR: 0x4bd4530 (libc.so.6:__memchr_avx2) redirected to 0x4840050 (memchr)
+--3217-- REDIR: 0x48fbd70 (libstdc++.so.6:operator delete(void*)) redirected to 0x483cf50 (operator delete(void*))
+--3217-- REDIR: 0x4bd8310 (libc.so.6:__strchrnul_avx2) redirected to 0x4843540 (strchrnul)
+--3217-- REDIR: 0x48fbda0 (libstdc++.so.6:operator delete[](void*)) redirected to 0x483d6e0 (operator delete[](void*))
+--3217-- REDIR: 0x4aea6d0 (libc.so.6:free) redirected to 0x483c9d0 (free)
+==3217== 
+==3217== HEAP SUMMARY:
+==3217==     in use at exit: 6,428,338 bytes in 100,913 blocks
+==3217==   total heap usage: 186,146 allocs, 85,233 frees, 15,015,886 bytes allocated
+==3217== 
+==3217== Searching for pointers to 100,913 not-freed blocks
+==3217== Checked 110,472 bytes
+==3217== 
+==3217== 6,428,338 (32 direct, 6,428,306 indirect) bytes in 1 blocks are definitely lost in loss record 4 of 4
+==3217==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3217==    by 0x10A7A0: main (Order.cpp:15)
+==3217== 
+==3217== LEAK SUMMARY:
+==3217==    definitely lost: 32 bytes in 1 blocks
+==3217==    indirectly lost: 6,428,306 bytes in 100,912 blocks
+==3217==      possibly lost: 0 bytes in 0 blocks
+==3217==    still reachable: 0 bytes in 0 blocks
+==3217==         suppressed: 0 bytes in 0 blocks
+==3217== 
+==3217== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
